@@ -111,7 +111,44 @@ if __name__ == "__main__":
             n_cls_preds = len(unique_labels)
             bbox_colors = random.sample(colors, n_cls_preds)
             for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
+            
+            #Definicion de variables y listas
+            n_classes= len(classes) -1;
+            clasess=[]
+            contador=[]
+            for var in range (n_classes):
+               clasess.append(var)
+               contador.append(0)
 
+           
+            for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
+              #contador
+                for var1 in range (n_classes):
+	                     if clasess[var1] == cls_pred: 
+                                contador[clasess[var1]]= contador[clasess[var1]] + 1
+                      
+                box_w = x2 - x1
+                box_h = y2 - y1
+
+                color = bbox_colors[int(np.where(unique_labels == int(cls_pred))[0])]
+                # Create a Rectangle patch
+                bbox = patches.Rectangle((x1, y1), box_w, box_h, linewidth=2, edgecolor=color, facecolor="none")
+                # Add the bbox to the plot
+                ax.add_patch(bbox)
+                # Add label
+                plt.text(
+                    x1,
+                    y1,
+                    s=classes[int(cls_pred)],
+                    color="white",
+                    verticalalignment="top",
+                    bbox={"color": color, "pad": 0},
+                )
+        #print contador
+        print("\nCantidad maxima de articulos detectados \n")
+        for var2 in range (n_classes):
+            
+            print(classes[var2],": ", contador[var2], "\n")
                 print("\t+ Label: %s, Conf: %.5f" % (classes[int(cls_pred)], cls_conf.item()))
 
                 box_w = x2 - x1

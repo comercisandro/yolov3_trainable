@@ -149,7 +149,6 @@ if __name__ == "__main__":
         for var2 in range (n_classes):
             
             print(classes[var2],": ", contador[var2], "\n")
-                print("\t+ Label: %s, Conf: %.5f" % (classes[int(cls_pred)], cls_conf.item()))
 
         # Save generated image with detections
         plt.axis("off")

@@ -69,7 +69,7 @@ if __name__ == "__main__":
         dataset,
         batch_size=opt.batch_size,
         shuffle=True,
-        num_workers=opt.n_cpu,
+        num_workers=2,
         pin_memory=True,
         collate_fn=dataset.collate_fn,
     )
@@ -174,5 +174,5 @@ if __name__ == "__main__":
             print(AsciiTable(ap_table).table)
             print(f"---- mAP {AP.mean()}")
 
-        if epoch % opt.checkpoint_interval == 10:
+        if (epoch + 1) % opt.checkpoint_interval == 0:
             torch.save(model.state_dict(), f"yolov3_ckpt_%d.pth" % epoch)

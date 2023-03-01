@@ -112,21 +112,19 @@ if __name__ == "__main__":
             bbox_colors = random.sample(colors, n_cls_preds)
            
             
-            #Definicion de variables y listas
-            n_classes= len(classes) -1;
-            clasess=[]
-            contador=[]
-            for var in range (n_classes):
-               clasess.append(var)
-               contador.append(0)
+        #Definicion de variables y listas
+        n_classes= len(classes) -1;
+        clasess=[]
+        contador=[]
+        for var in range (n_classes):
+          clasess.append(var)
+          contador.append(0)
 
            
-            for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
-              #contador
+        for x1, y1, x2, y2, conf, cls_conf, cls_pred in detections:
                 for var1 in range (n_classes):
-	                     if clasess[var1] == cls_pred: 
-                                contador[clasess[var1]]= contador[clasess[var1]] + 1
-                      
+	                  if clasess[var1] == cls_pred: 
+                           contador[clasess[var1]]= contador[clasess[var1]] + 1
                 box_w = x2 - x1
                 box_h = y2 - y1
 
@@ -139,7 +137,7 @@ if __name__ == "__main__":
                 plt.text(
                     x1,
                     y1,
-                    s=classes[int(cls_pred)],
+                    s=(classes[int(cls_pred)], contador[int(cls_pred)]),
                     color="white",
                     verticalalignment="top",
                     bbox={"color": color, "pad": 0},
@@ -147,7 +145,8 @@ if __name__ == "__main__":
         #print contador
         print("\nCantidad maxima de articulos detectados \n")
         for var2 in range (n_classes):
-            print(classes[var2],": ", contador[var2], "\n")
+            if  contador[var2]!=0:
+               print(classes[var2],": ", contador[var2], "\n")
 
         # Save generated image with detections
         plt.axis("off")
